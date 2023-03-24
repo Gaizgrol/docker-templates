@@ -1,0 +1,21 @@
+name: your-project-name
+services:
+  front:
+    container_name: front-angular
+    # You should have a healthcheck implemented in all your backend containers!
+    # depends_on:
+    #   your-backend-container-name:
+    #     condition: service_healthy
+    build:
+      context: ../
+      dockerfile: docker/dockerfile.angular
+    ports:
+      - "4200:4200"
+    volumes:
+      - ../angular:/app
+    working_dir: /app
+    networks:
+      - outer-network
+
+networks:
+  outer-network:

@@ -1,0 +1,12 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY angular .
+COPY docker/entrypoint.sh /bin/entrypoint.sh
+
+RUN npm install -g @angular/cli
+
+EXPOSE 4200
+
+ENTRYPOINT [ "entrypoint.sh" ]
