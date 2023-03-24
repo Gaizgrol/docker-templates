@@ -1,0 +1,24 @@
+name: your-project-name
+services:
+  database:
+    container_name: database-mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      retries: 30
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    networks:
+      - inner-network
+
+    # Don't expose this in production! Use a secret management tool from your service provider (e.g. AWS Secrets)!
+    environment:
+      MYSQL_DATABASE: your-database-name
+      MYSQL_ROOT_PASSWORD: your-database-password
+
+networks:
+  inner-network:
