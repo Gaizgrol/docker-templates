@@ -1,0 +1,20 @@
+name: your-project-name
+services:
+  back-django:
+    container_name: django
+    # healthcheck:
+    #   test: ["CMD", "node", "healthcheck.js"]
+    #   interval: 5s
+    #   retries: 30
+    build:
+      context: ../
+      dockerfile: docker/dockerfile.django.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../django:/usr/src/app
+    networks:
+      - inner-network
+
+networks:
+  inner-network:
